@@ -29,13 +29,13 @@ Describe what the image communicates, not what it looks like.
 
 <!-- ❌ -->
 <img src="card.png" alt="card image" />
-` ``
+```
 
 ### Decorative images
 If the image adds no information, use an empty alt so screen readers skip it.
-` ``html
+```html
 <img src="background-texture.png" alt="" role="presentation" />
-` ``
+```
 
 ### Automatic alt generation (AI-assisted)
 When generating alt text programmatically via an LLM or vision API:
@@ -48,10 +48,10 @@ When generating alt text programmatically via an LLM or vision API:
 
 ### Complex images (charts, diagrams)
 Provide a short alt + a longer text alternative nearby or via `aria-describedby`:
-` ``html
+```html
 <img src="chart.png" alt="Bar chart: Q1–Q4 revenue 2024" aria-describedby="chart-desc" />
 <p id="chart-desc">Q1: CHF 1.2M, Q2: CHF 1.4M, Q3: CHF 1.1M, Q4: CHF 1.8M. Q4 highest.</p>
-` ``
+```
 
 ---
 
@@ -66,19 +66,19 @@ Every interactive element must be reachable and operable with keyboard alone.
 - Trap focus inside modals and dialogs — return focus to the trigger on close
 
 ### Tab order
-` ``html
+```html
 <!-- ✅ Logical order -->
 <input tabindex="0" />  <!-- default, follows DOM order -->
 
 <!-- ❌ Never use positive tabindex — it breaks natural flow -->
 <input tabindex="3" />
-` ``
+```
 
 ### Focus styles
 Minimum visible focus indicator:
 - 2px solid outline
 - 3:1 contrast ratio between focus colour and background
-` ``css
+```css
 /* ✅ */
 :focus-visible {
   outline: 2px solid #0055CC;
@@ -87,7 +87,7 @@ Minimum visible focus indicator:
 
 /* ❌ */
 :focus { outline: none; }
-` ``
+```
 
 ### Interactive components
 | Component | Keyboard behaviour |
@@ -106,7 +106,7 @@ Minimum visible focus indicator:
 
 Use the right element for the right job — this is the fastest accessibility win.
 
-` ``html
+```html
 <!-- ✅ -->
 <button>Submit</button>
 <nav aria-label="Main navigation">...</nav>
@@ -117,7 +117,7 @@ Use the right element for the right job — this is the fastest accessibility wi
 <div onclick="submit()">Submit</div>
 <div class="nav">...</div>
 <p class="big-bold">Page title</p>
-` ``
+```
 
 Heading hierarchy must be logical and never skip levels (h1 → h2 → h3).
 
@@ -133,11 +133,11 @@ Heading hierarchy must be logical and never skip levels (h1 → h2 → h3).
   - Programmatically linked to the field via `aria-describedby`
   - Not colour-only — include an icon or text prefix
 
-` ``html
+```html
 <label for="iban">IBAN</label>
 <input id="iban" aria-describedby="iban-error" aria-invalid="true" />
 <span id="iban-error" role="alert">Enter a valid Swiss IBAN (e.g. CH56 0483 5012 3456 7800 9)</span>
-` ``
+```
 
 ---
 
@@ -145,11 +145,11 @@ Heading hierarchy must be logical and never skip levels (h1 → h2 → h3).
 
 Prefer native HTML. Only reach for ARIA when no native element exists.
 
-` ``html
+```html
 <div role="dialog" aria-modal="true" aria-labelledby="dialog-title">
   <h2 id="dialog-title">Confirm deletion</h2>
 </div>
-` ``
+```
 
 | Attribute | When to use |
 |---|---|
@@ -165,14 +165,14 @@ Prefer native HTML. Only reach for ARIA when no native element exists.
 - Respect `prefers-reduced-motion` — wrap all animations in a media query
 - No content should flash more than 3 times per second (seizure threshold)
 
-` ``css
+```css
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
 }
-` ``
+```
 
 See `animations` skill for full motion guidelines.
 
@@ -204,5 +204,3 @@ Before handing off any screen:
 | Automated audit | axe DevTools (browser extension) |
 | Keyboard test | Unplug your mouse and try |
 ```
-
-The backtick fences around code blocks have a stray space so they render here without breaking the outer block — remove those spaces when you paste (` `` ` → ```` ``` ````).
